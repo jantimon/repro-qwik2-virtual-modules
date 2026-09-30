@@ -3,7 +3,7 @@
 A Vite plugin can serve CSS as a virtual module, as CSS-in-JS libraries do. With Qwik Router in dev (`vite --mode ssr`), such a stylesheet is never styled: the router links it under a URL that returns 404. If the plugin uses the usual `\0` prefix for the module id, the dev server also crashes on the first page request.
 
 - **Issue:** [QwikDev/qwik#9085](https://github.com/QwikDev/qwik/issues/9085)
-- **Fix:** branch [`jantimon/qwik:fix/router-virtual-css-dev`](https://github.com/jantimon/qwik/tree/fix/router-virtual-css-dev)
+- **Fix:** [QwikDev/qwik#9086](https://github.com/QwikDev/qwik/pull/9086)
 
 ```ts
 // vite.config.ts
