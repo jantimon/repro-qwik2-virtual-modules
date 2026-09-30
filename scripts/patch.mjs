@@ -16,10 +16,7 @@ const src = readFileSync(backup, "utf8");
 const replacements = [
   [
     "var getRouterIndexTags = (server) => {",
-    `var toDevServerUrl = (url) => {
-	if (url.startsWith("/")) return url;
-	return url.startsWith("\\0") ? \`/@id/__x00__\${url.slice(1)}\` : \`/@id/\${url}\`;
-};
+    `var toDevServerUrl = (url) => url.startsWith("/") ? url : \`/@id/\${url.replace("\\0", "__x00__")}\`;
 var getRouterIndexTags = (server) => {`,
   ],
   [

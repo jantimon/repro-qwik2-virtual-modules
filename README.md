@@ -92,15 +92,12 @@ Qwik 1 had the same 404 in its dev server, fixed in [#8351](https://github.com/Q
 
 ## Fix
 
-Link a virtual module under `/@id/`, and only watch modules whose URL is a file path:
+Link a virtual module under `/@id/` with the `\0` written as `__x00__`, as Vite's own `wrapId` does, and only watch modules whose URL is a file path:
 
 ```ts
-const toDevServerUrl = (url: string) => {
-  if (url.startsWith("/")) {
-    return url;
-  }
-  return url.startsWith("\0") ? `/@id/__x00__${url.slice(1)}` : `/@id/${url}`;
-};
+// the same as Vite's own wrapId: `\0virtual:theme.css` -> `/@id/__x00__virtual:theme.css`
+const toDevServerUrl = (url: string) =>
+  url.startsWith("/") ? url : `/@id/${url.replace("\0", "__x00__")}`;
 
 // in getCssUrls
 cssModules.add(`${toDevServerUrl(mod.url)}${mod.lastHMRTimestamp ? `?t=${mod.lastHMRTimestamp}` : ""}`);
